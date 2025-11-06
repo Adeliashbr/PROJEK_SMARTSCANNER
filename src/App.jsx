@@ -12,9 +12,9 @@ const SmartScanner = () => {
   const fileInputRef = useRef(null);
 
   const docTypes = {
-    letter: { name: 'Surat Dokumen', desc: 'Meluruskan perspektif', icon: '📄' },
-    certificate: { name: 'Sertifikat/Ijazah', desc: 'Membersihkan bayangan', icon: '🎓' },
-    handwriting: { name: 'Tulisan Tangan', desc: 'Memperjelas teks', icon: '✍️' }
+    letter: { name: 'Surat Dokumen', desc: 'Meluruskan perspektif' },
+    certificate: { name: 'Sertifikat/Ijazah', desc: 'Membersihkan bayangan' },
+    handwriting: { name: 'Tulisan Tangan', desc: 'Memperjelas teks' }
   };
 
   // --- helper: tunggu OpenCV siap (jika dipakai) ---
@@ -98,7 +98,7 @@ const SmartScanner = () => {
 
 // --- perspective transform pakai OpenCV.js (async) ---
 const perspectiveTransform = async (ctx, imgEl) => {
-  setStep('🔍 Memuat OpenCV / gambar...');
+  setStep(' Memuat OpenCV / gambar...');
   try {
     await waitForCv();
   } catch (err) {
@@ -106,7 +106,7 @@ const perspectiveTransform = async (ctx, imgEl) => {
   }
 
   if (window.cv && window.cv.Mat) {
-    setStep('📐 Memproses dengan OpenCV...');
+    setStep(' Memproses dengan OpenCV...');
     const cv = window.cv;
 
     const src = cv.imread(imgEl);
@@ -193,7 +193,7 @@ const perspectiveTransform = async (ctx, imgEl) => {
         contours.delete(); hierarchy.delete();
         bestContour.delete(); approx.delete(); srcCoords.delete(); dstCoords.delete(); M.delete(); dst.delete();
 
-        setStep('✅ Dokumen berhasil diluruskan!');
+        setStep(' Dokumen berhasil diluruskan!');
         return dstCanvas;
       }
     }
@@ -202,11 +202,11 @@ const perspectiveTransform = async (ctx, imgEl) => {
     cv.imshow(ctx.canvas, original);
     src.delete(); original.delete(); gray.delete();
     contours.delete(); hierarchy.delete();
-    setStep('⚠️ Tidak dapat menemukan 4 sudut. Menampilkan gambar asli.');
+    setStep(' Tidak dapat menemukan 4 sudut. Menampilkan gambar asli.');
     return ctx.canvas;
   } else {
     // fallback sederhana
-    setStep('⚠️ OpenCV tidak tersedia, fallback crop...');
+    setStep(' OpenCV tidak tersedia, fallback crop...');
     const canvas = ctx.canvas;
     const width = imgEl.width;
     const height = imgEl.height;
@@ -273,10 +273,10 @@ const perspectiveTransform = async (ctx, imgEl) => {
       // convert result canvas to dataURL
       const dataUrl = resultCanvas.toDataURL('image/png', 0.95);
       setProcessedImage(dataUrl);
-      setStep('✅ Selesai!');
+      setStep(' Selesai!');
     } catch (err) {
       console.error(err);
-      setStep('❌ Error saat memproses');
+      setStep(' Error saat memproses');
     } finally {
       setProcessing(false);
     }
@@ -303,7 +303,7 @@ const perspectiveTransform = async (ctx, imgEl) => {
         <div className="text-center mb-10">
           <div className="inline-block bg-white rounded-2xl shadow-xl px-8 py-6 mb-6">
             <h1 className="text-5xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
-              📱 Smart Document Scanner
+               Smart Document Scanner
             </h1>
             <p className="text-gray-700 text-lg font-medium">Pemindai Dokumen Mahasiswa - Citra Digital Project</p>
           </div>
@@ -364,7 +364,7 @@ const perspectiveTransform = async (ctx, imgEl) => {
                 className="hidden"
               />
               <Upload className="w-20 h-20 mx-auto mb-6 text-indigo-400 group-hover:text-indigo-600 transition-colors" />
-              <p className="text-2xl font-bold text-gray-800 mb-3">📤 Upload Dokumen</p>
+              <p className="text-2xl font-bold text-gray-800 mb-3"> Upload Dokumen</p>
               <p className="text-gray-600 text-lg">Klik atau drag & drop gambar di sini</p>
             </div>
           </div>
@@ -461,7 +461,7 @@ const perspectiveTransform = async (ctx, imgEl) => {
                     <div className="text-xs text-gray-600">Gaussian</div>
                   </div>
                   <div className="bg-white rounded-xl p-5 shadow-lg">
-                    <div className="text-3xl mb-2">✨</div>
+                    <div className="text-3xl mb-2"> </div>
                     <div className="font-bold text-gray-800">Enhancement</div>
                     <div className="text-xs text-gray-600">Quality Boost</div>
                   </div>
